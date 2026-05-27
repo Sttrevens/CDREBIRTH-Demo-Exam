@@ -14,7 +14,6 @@ public class SPPlayerMovement : MonoBehaviour
 
     private CharacterController _controller;
     private SPAnimatorManager _animatorManager;
-    private Animator _animator;
 
     private float _verticalVelocity;
     private bool _jumpPressed;
@@ -24,30 +23,29 @@ public class SPPlayerMovement : MonoBehaviour
     {
         _controller = GetComponent<CharacterController>();
         _animatorManager = GetComponent<SPAnimatorManager>();
-        _animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
     {
         if (playerCamera == null) playerCamera = GetComponentInChildren<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        SPCursorLock.Lock();
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump")) _jumpPressed = true;
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!SPCursorLock.HandleInput())
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            _jumpPressed = false;
+            return;
         }
+
+        if (Input.GetButtonDown("Jump")) _jumpPressed = true;
 
         if (_jumpPressed && _controller.isGrounded && !_isJumping)
         {
             _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
             _isJumping = true;
-            _animator.Play("Jump", 0, 0f);
+            _animatorManager.RequestJump();
         }
         _jumpPressed = false;
     }
@@ -60,12 +58,13 @@ public class SPPlayerMovement : MonoBehaviour
             if (_isJumping)
             {
                 _isJumping = false;
-                _animator.Play("Idle", 0, 0.1f);
             }
         }
 
+        _animatorManager.IsGrounded = _controller.isGrounded;
+
         float speed = 0f;
-        if (playerCamera != null)
+        if (playerCamera != null && SPCursorLock.IsLocked)
         {
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");

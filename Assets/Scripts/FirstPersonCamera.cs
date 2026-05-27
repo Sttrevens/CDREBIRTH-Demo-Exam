@@ -22,8 +22,7 @@ public class FirstPersonCamera : MonoBehaviour
     private void Start()
     {
         if (_playerBody == null) FindPlayerBody();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        SPCursorLock.Lock();
     }
 
     private void Update()
@@ -33,7 +32,7 @@ public class FirstPersonCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_playerBody == null) return;
+        if (_playerBody == null || !SPCursorLock.IsLocked) return;
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
