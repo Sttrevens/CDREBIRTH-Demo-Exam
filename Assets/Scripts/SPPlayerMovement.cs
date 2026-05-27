@@ -14,7 +14,7 @@ public class SPPlayerMovement : MonoBehaviour
 
     private CharacterController _controller;
     private SPAnimatorManager _animatorManager;
-    private SPPlayerAnimator _playerAnimator;
+    private Animator _animator;
 
     private float _verticalVelocity;
     private bool _jumpPressed;
@@ -24,7 +24,7 @@ public class SPPlayerMovement : MonoBehaviour
     {
         _controller = GetComponent<CharacterController>();
         _animatorManager = GetComponent<SPAnimatorManager>();
-        _playerAnimator = GetComponent<SPPlayerAnimator>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -42,17 +42,12 @@ public class SPPlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        
-        // Jump in Update, not FixedUpdate - ensures Animator sees it this frame
+
         if (_jumpPressed && _controller.isGrounded && !_isJumping)
         {
             _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            _animatorManager.JumpCount++;
             _isJumping = true;
-            
-            // Direct crossfade for reliability
-            var anim = GetComponentInChildren<Animator>();
-            if (anim != null) anim.CrossFade("Jump", 0.05f);
+            _animator.Play("Jump", 0, 0f);
         }
         _jumpPressed = false;
     }
@@ -65,12 +60,11 @@ public class SPPlayerMovement : MonoBehaviour
             if (_isJumping)
             {
                 _isJumping = false;
-                _animatorManager.JumpCount = 0;
+                _animator.Play("Idle", 0, 0.1f);
             }
         }
 
         float speed = 0f;
-
         if (playerCamera != null)
         {
             float h = Input.GetAxis("Horizontal");
@@ -80,13 +74,10 @@ public class SPPlayerMovement : MonoBehaviour
 
             Vector3 forward = playerCamera.transform.forward;
             Vector3 right = playerCamera.transform.right;
-            forward.y = 0f;
-            right.y = 0f;
-
+            forward.y = 0f; right.y = 0f;
             if (forward.sqrMagnitude < 0.001f) forward = Vector3.forward;
             if (right.sqrMagnitude < 0.001f) right = Vector3.right;
-            forward.Normalize();
-            right.Normalize();
+            forward.Normalize(); right.Normalize();
 
             var direction = forward * v + right * h;
             if (direction.sqrMagnitude > 1f) direction.Normalize();
@@ -97,7 +88,6 @@ public class SPPlayerMovement : MonoBehaviour
         }
 
         _animatorManager.Speed = speed;
-
         _verticalVelocity += gravity * Time.deltaTime;
         _controller.Move(Vector3.up * (_verticalVelocity * Time.deltaTime));
     }
