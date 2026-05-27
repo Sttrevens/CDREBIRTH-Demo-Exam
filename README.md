@@ -13,7 +13,7 @@ Lightweight Unity project for the intern technical exam. Includes a 3D character
 
 1. Clone and open in Unity (2022.3.34f1):
    ```bash
-   git clone <this-repo-url>
+   git clone https://github.com/Sttrevens/CDREBIRTH-Demo-Exam.git
    ```
 
 2. Wait for Unity to finish importing packages (no red errors in Console).
