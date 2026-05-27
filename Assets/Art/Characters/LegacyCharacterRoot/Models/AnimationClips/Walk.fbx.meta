@@ -63,8 +63,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.10914454
+          - time: 0.10914454
         functionName: PlayFootstepSound
         data: Walk
         objectReferenceParameter: {instanceID: 0}

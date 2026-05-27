@@ -14,6 +14,7 @@ public class SPPlayerMovement : MonoBehaviour
 
     private CharacterController _controller;
     private SPAnimatorManager _animatorManager;
+    private SPPlayerAnimator _playerAnimator;
 
     private float _verticalVelocity;
     private bool _jumpPressed;
@@ -23,6 +24,7 @@ public class SPPlayerMovement : MonoBehaviour
     {
         _controller = GetComponent<CharacterController>();
         _animatorManager = GetComponent<SPAnimatorManager>();
+        _playerAnimator = GetComponent<SPPlayerAnimator>();
     }
 
     private void Start()
@@ -40,6 +42,19 @@ public class SPPlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+        
+        // Jump in Update, not FixedUpdate - ensures Animator sees it this frame
+        if (_jumpPressed && _controller.isGrounded && !_isJumping)
+        {
+            _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            _animatorManager.JumpCount++;
+            _isJumping = true;
+            
+            // Direct crossfade for reliability
+            var anim = GetComponentInChildren<Animator>();
+            if (anim != null) anim.CrossFade("Jump", 0.05f);
+        }
+        _jumpPressed = false;
     }
 
     private void FixedUpdate()
@@ -47,8 +62,11 @@ public class SPPlayerMovement : MonoBehaviour
         if (_controller.isGrounded && _verticalVelocity < 0f)
         {
             _verticalVelocity = -2f;
-            _isJumping = false;
-            _animatorManager.JumpCount = 0;
+            if (_isJumping)
+            {
+                _isJumping = false;
+                _animatorManager.JumpCount = 0;
+            }
         }
 
         float speed = 0f;
@@ -60,13 +78,11 @@ public class SPPlayerMovement : MonoBehaviour
             bool sprint = Input.GetKey(KeyCode.LeftShift);
             float currentSpeed = sprint ? runSpeed : walkSpeed;
 
-            // Use TransformDirection to avoid gimbal issues when looking up/down
             Vector3 forward = playerCamera.transform.forward;
             Vector3 right = playerCamera.transform.right;
             forward.y = 0f;
             right.y = 0f;
 
-            // Guard against zero-length when looking straight down/up
             if (forward.sqrMagnitude < 0.001f) forward = Vector3.forward;
             if (right.sqrMagnitude < 0.001f) right = Vector3.right;
             forward.Normalize();
@@ -82,15 +98,7 @@ public class SPPlayerMovement : MonoBehaviour
 
         _animatorManager.Speed = speed;
 
-        if (_jumpPressed && _controller.isGrounded)
-        {
-            _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            _animatorManager.JumpCount = 1;
-            _isJumping = true;
-        }
-
         _verticalVelocity += gravity * Time.deltaTime;
         _controller.Move(Vector3.up * (_verticalVelocity * Time.deltaTime));
-        _jumpPressed = false;
     }
 }
