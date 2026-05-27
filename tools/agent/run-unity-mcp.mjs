@@ -25,9 +25,9 @@ const candidates = candidatesByPlatform[process.platform] ?? [];
 const serverPath = candidates.find((candidate) => existsSync(candidate));
 
 if (!serverPath) {
-  console.error(`[CDREBIRTH MCP] Unity MCP server was not found for ${process.platform}.`);
-  console.error("[CDREBIRTH MCP] Open the project in Unity once, then run tools/agent/setup-unity-mcp for your client.");
-  console.error(`[CDREBIRTH MCP] Checked: ${candidates.join(", ") || "(no candidates)"}`);
+  console.error(`[Demo MCP] Unity MCP server was not found for ${process.platform}.`);
+  console.error("[Demo MCP] Open the project in Unity once, then run tools/agent/setup-unity-mcp for your client.");
+  console.error(`[Demo MCP] Checked: ${candidates.join(", ") || "(no candidates)"}`);
   process.exit(1);
 }
 

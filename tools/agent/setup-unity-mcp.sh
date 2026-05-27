@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-echo "=== CDREBIRTH Demo Project — Unity MCP Setup ==="
+echo "=== Demo Project — Unity MCP Setup ==="
 echo "Make sure you've opened this project in Unity at least once before running this."
 echo ""
 
