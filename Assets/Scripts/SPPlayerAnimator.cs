@@ -17,9 +17,16 @@ public class SPPlayerAnimator : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
     }
 
+    private void Start()
+    {
+        // Late binding in case Awake ran before components were ready
+        if (_animatorManager == null) _animatorManager = GetComponent<SPAnimatorManager>();
+        if (_animator == null) _animator = GetComponentInChildren<Animator>();
+    }
+
     private void Update()
     {
-        UpdateAnimations();
+        if (_animatorManager != null && _animator != null) UpdateAnimations();
     }
 
     // PRIVATE METHODS
