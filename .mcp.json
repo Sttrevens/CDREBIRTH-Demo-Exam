@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "ai-game-developer": {
+      "command": "node",
+      "args": [
+        "tools/agent/run-unity-mcp.mjs",
+        "port=22398",
+        "plugin-timeout=10000",
+        "client-transport=stdio",
+        "authorization=none"
+      ]
+    }
+  }
+}
