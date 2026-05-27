@@ -17,6 +17,7 @@ public class SPPlayerMovement : MonoBehaviour
 
     private float _verticalVelocity;
     private bool _jumpPressed;
+    private bool _isJumping;
 
     private void Awake()
     {
@@ -44,7 +45,11 @@ public class SPPlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (_controller.isGrounded && _verticalVelocity < 0f)
+        {
             _verticalVelocity = -2f;
+            _isJumping = false;
+            _animatorManager.JumpCount = 0;
+        }
 
         float speed = 0f;
 
@@ -55,10 +60,18 @@ public class SPPlayerMovement : MonoBehaviour
             bool sprint = Input.GetKey(KeyCode.LeftShift);
             float currentSpeed = sprint ? runSpeed : walkSpeed;
 
-            var forward = playerCamera.transform.forward;
-            var right = playerCamera.transform.right;
-            forward.y = 0f; right.y = 0f;
-            forward.Normalize(); right.Normalize();
+            // Use TransformDirection to avoid gimbal issues when looking up/down
+            Vector3 forward = playerCamera.transform.forward;
+            Vector3 right = playerCamera.transform.right;
+            forward.y = 0f;
+            right.y = 0f;
+
+            // Guard against zero-length when looking straight down/up
+            if (forward.sqrMagnitude < 0.001f) forward = Vector3.forward;
+            if (right.sqrMagnitude < 0.001f) right = Vector3.right;
+            forward.Normalize();
+            right.Normalize();
+
             var direction = forward * v + right * h;
             if (direction.sqrMagnitude > 1f) direction.Normalize();
 
@@ -72,7 +85,8 @@ public class SPPlayerMovement : MonoBehaviour
         if (_jumpPressed && _controller.isGrounded)
         {
             _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            _animatorManager.JumpCount++;
+            _animatorManager.JumpCount = 1;
+            _isJumping = true;
         }
 
         _verticalVelocity += gravity * Time.deltaTime;

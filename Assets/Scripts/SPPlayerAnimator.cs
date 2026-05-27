@@ -1,14 +1,10 @@
 using UnityEngine;
 
-/// <summary>
-/// Simple animation driver — reads Speed from SPAnimatorManager and feeds it to Animator.
-/// Designed for SimpleLocomotion.controller (Idle <-> Walk <-> Run via Speed parameter).
-/// </summary>
 public class SPPlayerAnimator : MonoBehaviour
 {
     private SPAnimatorManager _animatorManager;
     private Animator _animator;
-    private int _lastVisibleJump;
+    private bool _jumpTriggered;
 
     private static readonly int SpeedHash = Animator.StringToHash("Speed");
     private static readonly int JumpHash = Animator.StringToHash("Jump");
@@ -29,11 +25,16 @@ public class SPPlayerAnimator : MonoBehaviour
     {
         if (_animatorManager == null || _animator == null) return;
 
-        if (_lastVisibleJump < _animatorManager.JumpCount)
+        // Jump: fire trigger once per press, reset when JumpCount goes back to 0
+        if (_animatorManager.JumpCount > 0 && !_jumpTriggered)
         {
             _animator.SetTrigger(JumpHash);
+            _jumpTriggered = true;
         }
-        _lastVisibleJump = _animatorManager.JumpCount;
+        if (_animatorManager.JumpCount == 0)
+        {
+            _jumpTriggered = false;
+        }
 
         _animator.SetFloat(SpeedHash, _animatorManager.Speed);
     }
