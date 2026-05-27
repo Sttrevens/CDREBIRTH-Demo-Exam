@@ -10,8 +10,8 @@ using UnityEngine;
 public class SPPlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float walkSpeed = 4f;
-    [SerializeField] private float runSpeed = 7f;
+    [SerializeField] private float walkSpeed = 10f;
+    [SerializeField] private float runSpeed = 15f;
     [SerializeField] private float jumpHeight = 1.2f;
     [SerializeField] private float gravity = -9.81f;
 
@@ -55,15 +55,12 @@ public class SPPlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Ground check
         if (controller.isGrounded && verticalVelocity < 0f)
             verticalVelocity = -2f;
 
-        // Raw input
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        // Camera-relative movement vector
         Vector3 move = Vector3.zero;
         float speed = 0f;
 
@@ -84,21 +81,17 @@ public class SPPlayerMovement : MonoBehaviour
 
             controller.Move(move);
 
-            // Feed animator: Speed drives overall motion rate;
-            // XAxis/ZAxis drive directional blend tree (Walk Fwd/Back/Left/Right)
             animatorManager.Speed = speed;
             animatorManager.XAxis = horizontal;
             animatorManager.ZAxis = vertical;
         }
 
-        // Jump
         if (jumpPressed && controller.isGrounded)
         {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
             animatorManager.JumpCount++;
         }
 
-        // Gravity
         verticalVelocity += gravity * Time.deltaTime;
         controller.Move(Vector3.up * (verticalVelocity * Time.deltaTime));
 

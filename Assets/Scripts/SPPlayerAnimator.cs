@@ -10,7 +10,7 @@ public class SPPlayerAnimator : MonoBehaviour
     private int _lastVisibleWield;
     private int _lastVisibleTwoHandWield;
 
-    // Parameter hashes (cache for performance)
+    // Parameter hashes
     private static readonly int JumpHash = Animator.StringToHash("Jump");
     private static readonly int PickupHash = Animator.StringToHash("Pickup");
     private static readonly int OneHandAttackHash = Animator.StringToHash("OneHandAttack");
@@ -19,21 +19,34 @@ public class SPPlayerAnimator : MonoBehaviour
     private static readonly int XAxisHash = Animator.StringToHash("XAxis");
     private static readonly int ZAxisHash = Animator.StringToHash("ZAxis");
 
+    private bool _loggedInit;
+
     // MONOBEHAVIOUR
     protected void Awake()
     {
         _animatorManager = GetComponent<SPAnimatorManager>();
         _animator = GetComponentInChildren<Animator>();
+        if (_animator == null) _animator = GetComponent<Animator>();
+        if (_animatorManager == null) _animatorManager = GetComponent<SPAnimatorManager>();
     }
 
     private void Start()
     {
         if (_animatorManager == null) _animatorManager = GetComponent<SPAnimatorManager>();
         if (_animator == null) _animator = GetComponentInChildren<Animator>();
+        
+        Debug.Log($"[SPPlayerAnimator] Start: _am={(_animatorManager != null)} _anim={(_animator != null)} controller={_animator?.runtimeAnimatorController?.name}");
+        _loggedInit = true;
     }
 
     private void Update()
     {
+        if (!_loggedInit)
+        {
+            Debug.Log($"[SPPlayerAnimator] First Update: _am={(_animatorManager != null)} _anim={(_animator != null)}");
+            _loggedInit = true;
+        }
+        
         if (_animatorManager == null || _animator == null) return;
         UpdateAnimations();
     }
@@ -68,5 +81,14 @@ public class SPPlayerAnimator : MonoBehaviour
         _animator.SetFloat(SpeedHash, _animatorManager.Speed);
         _animator.SetFloat(XAxisHash, _animatorManager.XAxis);
         _animator.SetFloat(ZAxisHash, _animatorManager.ZAxis);
+        
+        // Diagnostic: log once per second
+        if (Time.frameCount % 60 == 0)
+        {
+            float animSpeed = _animator.GetFloat(SpeedHash);
+            float animX = _animator.GetFloat(XAxisHash);
+            float animZ = _animator.GetFloat(ZAxisHash);
+            Debug.Log($"[SPA] Frame {Time.frameCount}: mgr(S={_animatorManager.Speed:F1} X={_animatorManager.XAxis:F2} Z={_animatorManager.ZAxis:F2}) anim(S={animSpeed:F1} X={animX:F2} Z={animZ:F2})");
+        }
     }
 }
