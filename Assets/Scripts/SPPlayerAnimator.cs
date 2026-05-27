@@ -10,6 +10,15 @@ public class SPPlayerAnimator : MonoBehaviour
     private int _lastVisibleWield;
     private int _lastVisibleTwoHandWield;
 
+    // Parameter hashes (cache for performance)
+    private static readonly int JumpHash = Animator.StringToHash("Jump");
+    private static readonly int PickupHash = Animator.StringToHash("Pickup");
+    private static readonly int OneHandAttackHash = Animator.StringToHash("OneHandAttack");
+    private static readonly int TwoHandAttackHash = Animator.StringToHash("TwoHandAttack");
+    private static readonly int SpeedHash = Animator.StringToHash("Speed");
+    private static readonly int XAxisHash = Animator.StringToHash("XAxis");
+    private static readonly int ZAxisHash = Animator.StringToHash("ZAxis");
+
     // MONOBEHAVIOUR
     protected void Awake()
     {
@@ -34,30 +43,30 @@ public class SPPlayerAnimator : MonoBehaviour
     {
         if (_lastVisibleJump < _animatorManager.JumpCount)
         {
-            _animator.SetTrigger("Jump");
+            _animator.SetTrigger(JumpHash);
         }
         _lastVisibleJump = _animatorManager.JumpCount;
 
         if (_lastVisiblePickup < _animatorManager.PickupCount)
         {
-            _animator.SetTrigger("Pickup");
+            _animator.SetTrigger(PickupHash);
         }
         _lastVisiblePickup = _animatorManager.PickupCount;
 
         if (_lastVisibleWield < _animatorManager.WieldCount)
         {
-            _animator.SetTrigger("OneHandAttack");
+            _animator.SetTrigger(OneHandAttackHash);
         }
         _lastVisibleWield = _animatorManager.WieldCount;
 
         if (_lastVisibleTwoHandWield < _animatorManager.TwoHandWieldCount)
         {
-            _animator.SetTrigger("TwoHandAttack");
+            _animator.SetTrigger(TwoHandAttackHash);
         }
         _lastVisibleTwoHandWield = _animatorManager.TwoHandWieldCount;
 
-        _animator.SetFloat("Speed", _animatorManager.Speed);
-        _animator.SetFloat("XAxis", _animatorManager.XAxis);
-        _animator.SetFloat("ZAxis", _animatorManager.ZAxis);
+        _animator.SetFloat(SpeedHash, _animatorManager.Speed);
+        _animator.SetFloat(XAxisHash, _animatorManager.XAxis);
+        _animator.SetFloat(ZAxisHash, _animatorManager.ZAxis);
     }
 }

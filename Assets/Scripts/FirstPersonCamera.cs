@@ -12,7 +12,7 @@ public class FirstPersonCamera : MonoBehaviour
     public float lookXLimit = 85f;
 
     private Transform _playerBody;
-    private float xRotation;
+    private float _xRotation;
 
     private void Awake()
     {
@@ -21,32 +21,34 @@ public class FirstPersonCamera : MonoBehaviour
 
     private void Start()
     {
+        if (_playerBody == null) FindPlayerBody();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
+    private void Update()
+    {
+        if (_playerBody == null) FindPlayerBody();
+    }
+
     private void LateUpdate()
     {
-        // Ensure playerBody ref is valid each frame
-        if (_playerBody == null) FindPlayerBody();
+        if (_playerBody == null) return;
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        // Horizontal: rotate the player body
-        if (_playerBody != null)
-            _playerBody.Rotate(Vector3.up, mouseX);
+        _playerBody.Rotate(Vector3.up, mouseX);
 
-        // Vertical: tilt camera locally
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -lookXLimit, lookXLimit);
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        _xRotation -= mouseY;
+        _xRotation = Mathf.Clamp(_xRotation, -lookXLimit, lookXLimit);
+        transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
     }
 
     private void FindPlayerBody()
     {
-        // Walk up from camera to find the GameObject with CharacterController
-        var t = transform;
+        // Walk up from camera: Head -> ... -> CharacterModel -> Player
+        Transform t = transform;
         while (t != null)
         {
             if (t.TryGetComponent<CharacterController>(out _))
@@ -56,8 +58,10 @@ public class FirstPersonCamera : MonoBehaviour
             }
             t = t.parent;
         }
-        // Fallback: find by tag
-        var player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null) _playerBody = player.transform;
+
+        // Fallback: find Player tag
+        var go = GameObject.FindGameObjectWithTag("Player");
+        if (go != null)
+            _playerBody = go.transform;
     }
 }
