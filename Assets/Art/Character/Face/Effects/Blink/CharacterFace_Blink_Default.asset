@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeebd978753d6462ba7b3041cb8e9a63, type: 3}
+  m_Name: CharacterFace_Blink_Default
+  m_EditorClassIdentifier: 
+  leftFrames:
+  - {fileID: 21300000, guid: 060596005d1a1446eaeca8899655fe10, type: 3}
+  - {fileID: 21300000, guid: 2c50b9bc6b03343a68b47f510b07a707, type: 3}
+  - {fileID: 21300000, guid: 8fd8e690081f74a07884a8f3dab50254, type: 3}
+  - {fileID: 21300000, guid: ca259b1ec313a48bfade6dc8ced0412c, type: 3}
+  - {fileID: 21300000, guid: 4d07408f9c1714df7a7bd0ab095e4b5d, type: 3}
+  - {fileID: 21300000, guid: b02ac39a081e4456bab28cfc5f73d135, type: 3}
+  - {fileID: 21300000, guid: 254490c162c77454db7aed48b8b350d4, type: 3}
+  rightFrames:
+  - {fileID: 21300000, guid: 6ea1c524483a740d5b11aeae46838842, type: 3}
+  - {fileID: 21300000, guid: 5044b704b235a4cf79efc623bc1bb7a4, type: 3}
+  - {fileID: 21300000, guid: 41c232db97f1f4df1b2e21675c925fc9, type: 3}
+  - {fileID: 21300000, guid: 78c24238c302a4064a3627971cf79e64, type: 3}
+  - {fileID: 21300000, guid: 737bcd005b3634d75affc8e1e2bf16ea, type: 3}
+  - {fileID: 21300000, guid: f9184098b5c2c4dab93b13d1d711d057, type: 3}
+  - {fileID: 21300000, guid: 62b683f69bd9b48d88e4780c997554c4, type: 3}

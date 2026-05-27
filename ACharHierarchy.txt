@@ -1,0 +1,83 @@
+A_Real_Character_Instance
+  DropBox
+  Model
+    IdleRig
+      RightHandConstraint
+    AimRig
+      SphereAimRig
+      RightHandAim
+    HippieRig
+      SphereAimRig
+      RightHandAim
+    AnyWayRig
+      HeadConstraint
+    CharacterModel (Missing Prefab with guid: 8961f279731e4394c90404314d970618)
+      head
+      Placeholder for referenced Transform in Prefab instance (2)
+      Placeholder for referenced Transform in Prefab instance (3)
+      Placeholder for referenced Transform in Prefab instance (4)
+      Placeholder for referenced Transform in Prefab instance (5)
+      Placeholder for referenced Transform in Prefab instance (6)
+      Placeholder for referenced Transform in Prefab instance (7)
+      Placeholder for referenced Transform in Prefab instance (8)
+        PadHandle
+      Placeholder for referenced Transform in Prefab instance (9)
+      Placeholder for referenced Transform in Prefab instance (10)
+      Placeholder for referenced Transform in Prefab instance (11)
+      Placeholder for referenced Transform in Prefab instance (12)
+      Placeholder for referenced Transform in Prefab instance (13)
+      Placeholder for referenced Transform in Prefab instance (14)
+      Placeholder for referenced Transform in Prefab instance (15)
+      Placeholder for referenced Transform in Prefab instance (16)
+      Placeholder for referenced Transform in Prefab instance (17)
+      Placeholder for referenced Transform in Prefab instance (18)
+      Placeholder for referenced Transform in Prefab instance (19)
+      Placeholder for referenced Transform in Prefab instance (20)
+      Placeholder for referenced Transform in Prefab instance (21)
+      Placeholder for referenced Transform in Prefab instance (22)
+      Placeholder for referenced Transform in Prefab instance (23)
+      Placeholder for referenced Transform in Prefab instance (24)
+      Placeholder for referenced Transform in Prefab instance (25)
+      Placeholder for referenced Transform in Prefab instance (26)
+        Jaw
+        AimTargetRig
+        02
+        UpperBody
+          CameraRoot
+            FlashlightRoot
+            HoldCameraRoot
+              GameObject
+            AimRoot
+            Hold
+              Sphere
+            LookAtTarget
+        Eyes
+        Eyebrows
+        face (Missing Prefab with guid: 015ea3485f88d4c33a1722a9c96a4ac6)
+          Placeholder for referenced MeshRenderer in Prefab instance (1)
+      Placeholder for referenced Transform in Prefab instance (27)
+      Placeholder for referenced Transform in Prefab instance (28)
+        RightHandTarget
+      Placeholder for referenced Transform in Prefab instance (29)
+      Placeholder for referenced Transform in Prefab instance (30)
+      Placeholder for referenced Transform in Prefab instance (31)
+      Placeholder for referenced Transform in Prefab instance (32)
+      Placeholder for referenced Transform in Prefab instance (33)
+      Placeholder for referenced Transform in Prefab instance (34)
+  Player Info UI
+    Player Name Text
+  AimPointForSpine
+  AimTargetForPad
+    Sphere
+    PadHandle
+  HippieTargetForPad
+    Sphere
+  BootPoint
+  KickPoint
+  ScannableBehavior
+  FaceScreenRig
+    FaceRenderCamera
+    FaceCanvas
+      LeftEye
+      RightEye
+      Mouth

@@ -1,0 +1,291 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7e68cb58a34f7d94f414bd5082ad63, type: 3}
+  m_Name: CharacterFace_DefaultProfile
+  m_EditorClassIdentifier: 
+  eyeEffects:
+  - id: eye_open
+    fallbackEyeFrameIndex: 0
+    sequence:
+      frames: []
+      fps: 12
+      playbackMode: 2
+      overrideBlink: 0
+  - id: eye_hurt
+    fallbackEyeFrameIndex: 2
+    sequence:
+      frames: []
+      fps: 12
+      playbackMode: 2
+      overrideBlink: 0
+  - id: eye_dead
+    fallbackEyeFrameIndex: 6
+    sequence:
+      frames: []
+      fps: 12
+      playbackMode: 2
+      overrideBlink: 0
+  mouthEffects:
+  - id: mouth_idle
+    sequence:
+      frames:
+      - serializedVersion: 2
+        x: 0
+        y: 0.5
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - id: mouth_speaking
+    sequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.25
+        y: 0.5
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - id: mouth_streaming
+    sequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.5
+        y: 0.5
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - id: mouth_hurt
+    sequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.75
+        y: 0.5
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - id: mouth_dead
+    sequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.75
+        y: 0
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - id: mouth_interacting
+    sequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.25
+        y: 0
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - id: mouth_emote
+    sequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.5
+        y: 0
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  defaultBlinkEffect: {fileID: 11400000, guid: 8218bd14139f74e4e8df448a05a30d58, type: 2}
+  expressions:
+  - expression: 1
+    allowBlink: 1
+    blinkEffectOverride: {fileID: 0}
+    leftEyeEffect: {fileID: 11400000, guid: 63e1b242c91104763951974e3d80b420, type: 2}
+    rightEyeEffect: {fileID: 11400000, guid: 63e1b242c91104763951974e3d80b420, type: 2}
+    mouthEffect: {fileID: 11400000, guid: 17072541e32d843d2b81d7e335ab9765, type: 2}
+    leftEyeEffectId: eye_open
+    rightEyeEffectId: eye_open
+    mouthEffectId: mouth_idle
+    baseEyeFrameIndex: 0
+    eyeSequence:
+      frames: []
+      fps: 12
+      playbackMode: 2
+      overrideBlink: 0
+    mouthSequence:
+      frames:
+      - serializedVersion: 2
+        x: 0
+        y: 0.5
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - expression: 2
+    allowBlink: 1
+    blinkEffectOverride: {fileID: 0}
+    leftEyeEffect: {fileID: 11400000, guid: 63e1b242c91104763951974e3d80b420, type: 2}
+    rightEyeEffect: {fileID: 11400000, guid: 63e1b242c91104763951974e3d80b420, type: 2}
+    mouthEffect: {fileID: 11400000, guid: 0c39785ae9a324e34b0424247c6d6d9e, type: 2}
+    leftEyeEffectId: eye_open
+    rightEyeEffectId: eye_open
+    mouthEffectId: mouth_speaking
+    baseEyeFrameIndex: 0
+    eyeSequence:
+      frames: []
+      fps: 12
+      playbackMode: 2
+      overrideBlink: 0
+    mouthSequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.25
+        y: 0.5
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - expression: 3
+    allowBlink: 1
+    blinkEffectOverride: {fileID: 0}
+    leftEyeEffect: {fileID: 11400000, guid: 63e1b242c91104763951974e3d80b420, type: 2}
+    rightEyeEffect: {fileID: 11400000, guid: 63e1b242c91104763951974e3d80b420, type: 2}
+    mouthEffect: {fileID: 11400000, guid: d2051ba97d8644dacaf38d5cbe93552c, type: 2}
+    leftEyeEffectId: eye_open
+    rightEyeEffectId: eye_open
+    mouthEffectId: mouth_streaming
+    baseEyeFrameIndex: 0
+    eyeSequence:
+      frames: []
+      fps: 12
+      playbackMode: 2
+      overrideBlink: 0
+    mouthSequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.5
+        y: 0.5
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - expression: 4
+    allowBlink: 0
+    blinkEffectOverride: {fileID: 0}
+    leftEyeEffect: {fileID: 11400000, guid: 6618be1ddb48c400ca93b5af967b0a1b, type: 2}
+    rightEyeEffect: {fileID: 11400000, guid: 6618be1ddb48c400ca93b5af967b0a1b, type: 2}
+    mouthEffect: {fileID: 11400000, guid: f8716d13e86954e06819b5951c60f4d5, type: 2}
+    leftEyeEffectId: eye_hurt
+    rightEyeEffectId: eye_hurt
+    mouthEffectId: mouth_hurt
+    baseEyeFrameIndex: 2
+    eyeSequence:
+      frames: []
+      fps: 12
+      playbackMode: 2
+      overrideBlink: 0
+    mouthSequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.75
+        y: 0.5
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - expression: 5
+    allowBlink: 0
+    blinkEffectOverride: {fileID: 0}
+    leftEyeEffect: {fileID: 11400000, guid: 93c8f2d5d431c42d79b78179d777be6b, type: 2}
+    rightEyeEffect: {fileID: 11400000, guid: ad51db936080f4e919097e36ade5a7a4, type: 2}
+    mouthEffect: {fileID: 11400000, guid: ccb6fb6166f25439297ab81958431f10, type: 2}
+    leftEyeEffectId: eye_dead
+    rightEyeEffectId: eye_dead
+    mouthEffectId: mouth_dead
+    baseEyeFrameIndex: 6
+    eyeSequence:
+      frames: []
+      fps: 12
+      playbackMode: 2
+      overrideBlink: 0
+    mouthSequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.75
+        y: 0
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - expression: 6
+    allowBlink: 1
+    blinkEffectOverride: {fileID: 0}
+    leftEyeEffect: {fileID: 11400000, guid: 63e1b242c91104763951974e3d80b420, type: 2}
+    rightEyeEffect: {fileID: 11400000, guid: 63e1b242c91104763951974e3d80b420, type: 2}
+    mouthEffect: {fileID: 11400000, guid: 255c97855bcbc4746a5c85eb49c55aa8, type: 2}
+    leftEyeEffectId: eye_open
+    rightEyeEffectId: eye_open
+    mouthEffectId: mouth_interacting
+    baseEyeFrameIndex: 0
+    eyeSequence:
+      frames: []
+      fps: 12
+      playbackMode: 2
+      overrideBlink: 0
+    mouthSequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.25
+        y: 0
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
+  - expression: 7
+    allowBlink: 1
+    blinkEffectOverride: {fileID: 0}
+    leftEyeEffect: {fileID: 11400000, guid: 63e1b242c91104763951974e3d80b420, type: 2}
+    rightEyeEffect: {fileID: 11400000, guid: 63e1b242c91104763951974e3d80b420, type: 2}
+    mouthEffect: {fileID: 11400000, guid: efad3270047da47578c9a06a883acf8e, type: 2}
+    leftEyeEffectId: eye_open
+    rightEyeEffectId: eye_open
+    mouthEffectId: mouth_emote
+    baseEyeFrameIndex: 0
+    eyeSequence:
+      frames: []
+      fps: 12
+      playbackMode: 2
+      overrideBlink: 0
+    mouthSequence:
+      frames:
+      - serializedVersion: 2
+        x: 0.5
+        y: 0
+        width: 0.25
+        height: 0.5
+      fps: 12
+      playbackMode: 2
+      sourceTexture: {fileID: 2800000, guid: 6eb136157a1ed4c8283fb53ce58d2075, type: 3}
