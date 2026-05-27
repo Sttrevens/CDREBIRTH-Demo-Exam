@@ -1,11 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Single-player movement controller using Unity CharacterController.
-/// Designed for the Demo Exam project — no Photon/Fusion dependency.
-/// Requires: CharacterController, SPPlayerAnimator, SPAnimatorManager components.
-/// Camera child must have FirstPersonCamera component.
-/// </summary>
 [RequireComponent(typeof(CharacterController))]
 public class SPPlayerMovement : MonoBehaviour
 {
@@ -18,34 +12,28 @@ public class SPPlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private Camera playerCamera;
 
-    private CharacterController controller;
-    private SPAnimatorManager animatorManager;
-    private SPPlayerAnimator playerAnimator;
+    private CharacterController _controller;
+    private SPAnimatorManager _animatorManager;
 
-    private float verticalVelocity;
-    private bool jumpPressed;
+    private float _verticalVelocity;
+    private bool _jumpPressed;
 
     private void Awake()
     {
-        controller = GetComponent<CharacterController>();
-        animatorManager = GetComponent<SPAnimatorManager>();
-        playerAnimator = GetComponent<SPPlayerAnimator>();
+        _controller = GetComponent<CharacterController>();
+        _animatorManager = GetComponent<SPAnimatorManager>();
     }
 
     private void Start()
     {
-        if (playerCamera == null)
-            playerCamera = GetComponentInChildren<Camera>();
-
+        if (playerCamera == null) playerCamera = GetComponentInChildren<Camera>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
-            jumpPressed = true;
-
+        if (Input.GetButtonDown("Jump")) _jumpPressed = true;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
@@ -55,46 +43,40 @@ public class SPPlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (controller.isGrounded && verticalVelocity < 0f)
-            verticalVelocity = -2f;
+        if (_controller.isGrounded && _verticalVelocity < 0f)
+            _verticalVelocity = -2f;
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 move = Vector3.zero;
         float speed = 0f;
 
         if (playerCamera != null)
         {
+            float h = Input.GetAxis("Horizontal");
+            float v = Input.GetAxis("Vertical");
             bool sprint = Input.GetKey(KeyCode.LeftShift);
             float currentSpeed = sprint ? runSpeed : walkSpeed;
 
-            Vector3 forward = playerCamera.transform.forward;
-            Vector3 right = playerCamera.transform.right;
-            forward.y = 0; right.y = 0;
+            var forward = playerCamera.transform.forward;
+            var right = playerCamera.transform.right;
+            forward.y = 0f; right.y = 0f;
             forward.Normalize(); right.Normalize();
-            Vector3 direction = forward * vertical + right * horizontal;
+            var direction = forward * v + right * h;
             if (direction.sqrMagnitude > 1f) direction.Normalize();
 
-            move = direction * (currentSpeed * Time.deltaTime);
+            var move = direction * (currentSpeed * Time.deltaTime);
             speed = move.magnitude / Time.deltaTime;
-
-            controller.Move(move);
-
-            animatorManager.Speed = speed;
-            animatorManager.XAxis = horizontal;
-            animatorManager.ZAxis = vertical;
+            _controller.Move(move);
         }
 
-        if (jumpPressed && controller.isGrounded)
+        _animatorManager.Speed = speed;
+
+        if (_jumpPressed && _controller.isGrounded)
         {
-            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            animatorManager.JumpCount++;
+            _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            _animatorManager.JumpCount++;
         }
 
-        verticalVelocity += gravity * Time.deltaTime;
-        controller.Move(Vector3.up * (verticalVelocity * Time.deltaTime));
-
-        jumpPressed = false;
+        _verticalVelocity += gravity * Time.deltaTime;
+        _controller.Move(Vector3.up * (_verticalVelocity * Time.deltaTime));
+        _jumpPressed = false;
     }
 }
