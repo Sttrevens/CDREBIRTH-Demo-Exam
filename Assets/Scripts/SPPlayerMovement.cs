@@ -59,20 +59,36 @@ public class SPPlayerMovement : MonoBehaviour
         if (controller.isGrounded && verticalVelocity < 0f)
             verticalVelocity = -2f;
 
-        // Movement input (old-style Input for simplicity in demo)
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        float speed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+        // Raw input
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-        // Camera-relative movement
+        // Camera-relative movement vector
+        Vector3 move = Vector3.zero;
+        float speed = 0f;
+
         if (playerCamera != null)
         {
+            bool sprint = Input.GetKey(KeyCode.LeftShift);
+            float currentSpeed = sprint ? runSpeed : walkSpeed;
+
             Vector3 forward = playerCamera.transform.forward;
             Vector3 right = playerCamera.transform.right;
             forward.y = 0; right.y = 0;
             forward.Normalize(); right.Normalize();
-            Vector3 move = (forward * input.z + right * input.x) * (speed * Time.deltaTime);
+            Vector3 direction = forward * vertical + right * horizontal;
+            if (direction.sqrMagnitude > 1f) direction.Normalize();
+
+            move = direction * (currentSpeed * Time.deltaTime);
+            speed = move.magnitude / Time.deltaTime;
+
             controller.Move(move);
-            animatorManager.Speed = move.magnitude / Time.deltaTime;
+
+            // Feed animator: Speed drives overall motion rate;
+            // XAxis/ZAxis drive directional blend tree (Walk Fwd/Back/Left/Right)
+            animatorManager.Speed = speed;
+            animatorManager.XAxis = horizontal;
+            animatorManager.ZAxis = vertical;
         }
 
         // Jump

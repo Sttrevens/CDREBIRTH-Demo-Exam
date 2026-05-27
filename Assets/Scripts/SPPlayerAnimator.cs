@@ -19,14 +19,14 @@ public class SPPlayerAnimator : MonoBehaviour
 
     private void Start()
     {
-        // Late binding in case Awake ran before components were ready
         if (_animatorManager == null) _animatorManager = GetComponent<SPAnimatorManager>();
         if (_animator == null) _animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        if (_animatorManager != null && _animator != null) UpdateAnimations();
+        if (_animatorManager == null || _animator == null) return;
+        UpdateAnimations();
     }
 
     // PRIVATE METHODS
@@ -36,42 +36,28 @@ public class SPPlayerAnimator : MonoBehaviour
         {
             _animator.SetTrigger("Jump");
         }
-        else if (_lastVisibleJump > _animatorManager.JumpCount)
-        {
-            // Cancel Jump
-        }
+        _lastVisibleJump = _animatorManager.JumpCount;
 
         if (_lastVisiblePickup < _animatorManager.PickupCount)
         {
             _animator.SetTrigger("Pickup");
         }
-        else if (_lastVisiblePickup > _animatorManager.PickupCount)
-        {
-            // Cancel Pickup
-        }
+        _lastVisiblePickup = _animatorManager.PickupCount;
 
         if (_lastVisibleWield < _animatorManager.WieldCount)
         {
             _animator.SetTrigger("OneHandAttack");
         }
-        else if (_lastVisibleWield > _animatorManager.WieldCount)
-        {
-            // Cancel Pickup
-        }
+        _lastVisibleWield = _animatorManager.WieldCount;
 
         if (_lastVisibleTwoHandWield < _animatorManager.TwoHandWieldCount)
         {
             _animator.SetTrigger("TwoHandAttack");
         }
-        else if (_lastVisibleTwoHandWield > _animatorManager.TwoHandWieldCount)
-        {
-            // Cancel Pickup
-        }
-
-        _lastVisibleJump = _animatorManager.JumpCount;
-        _lastVisiblePickup = _animatorManager.PickupCount;
-        _lastVisibleWield = _animatorManager.WieldCount;
         _lastVisibleTwoHandWield = _animatorManager.TwoHandWieldCount;
+
         _animator.SetFloat("Speed", _animatorManager.Speed);
+        _animator.SetFloat("XAxis", _animatorManager.XAxis);
+        _animator.SetFloat("ZAxis", _animatorManager.ZAxis);
     }
 }
