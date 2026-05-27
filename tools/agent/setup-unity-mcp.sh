@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-echo "=== Demo Project — Unity MCP Setup ==="
+echo "=== CDREBIRTH Demo Exam — Unity MCP Setup ==="
 echo "Make sure you've opened this project in Unity at least once before running this."
 echo ""
 
@@ -36,7 +36,7 @@ detect_server() {
   done
 
   echo "ERROR: Unity MCP server binary not found under Library/mcp-server/." >&2
-  echo "Open this project in Unity once, then run this script again." >&2
+  echo "Open this project in Unity once (with Unity MCP package installed), then run this script again." >&2
   exit 1
 }
 
@@ -44,7 +44,7 @@ SERVER_PATH="$(detect_server)"
 echo "Found MCP server binary: $SERVER_PATH"
 echo ""
 
-# Write Codex .mcp.json
+# Write Codex .mcp.json (port 22399 to avoid conflicts with main CDREBIRTH project on 22398)
 cat > "$REPO_ROOT/.mcp.json" << 'MCPEOF'
 {
   "mcpServers": {
@@ -52,7 +52,7 @@ cat > "$REPO_ROOT/.mcp.json" << 'MCPEOF'
       "command": "node",
       "args": [
         "tools/agent/run-unity-mcp.mjs",
-        "port=22398",
+        "port=22399",
         "plugin-timeout=10000",
         "client-transport=stdio",
         "authorization=none"
@@ -62,7 +62,16 @@ cat > "$REPO_ROOT/.mcp.json" << 'MCPEOF'
 }
 MCPEOF
 
-echo "✓ Wrote .mcp.json"
+echo "✓ Wrote .mcp.json (port 22399)"
 echo ""
-echo "Setup complete!"
-echo "To verify: ask Codex to run 'ping' or 'console-get-logs' on this project."
+echo "=== Next Steps ==="
+echo "1. Start the MCP server in a terminal:"
+echo "   $SERVER_PATH port=22399 plugin-timeout=10000 client-transport=streamableHttp authorization=none"
+echo ""
+echo "2. In a separate terminal, link the CLI:"
+echo "   unity-mcp-cli bootstrap-local --url http://localhost:22399 --token \"\" $REPO_ROOT"
+echo ""
+echo "3. Verify:"
+echo "   unity-mcp-cli run-tool ping --url http://localhost:22399 --token \"\" --input '{\"message\":\"hello\"}'"
+echo ""
+echo "4. Open this folder in Codex Desktop and start the exam task!"
