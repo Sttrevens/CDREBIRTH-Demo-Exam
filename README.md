@@ -5,9 +5,59 @@ Lightweight Unity project for the intern technical exam. Includes a 3D character
 ## Prerequisites
 
 - **Unity Hub** + **Unity 2022.3.34f1** with URP template
-- **Node.js 18+**
+- **Node.js 20.19+ or 22.12+**
 - **Codex Desktop** or **Codex CLI**
-- **unity-mcp-cli**: `brew install unity-mcp-cli` or `npm install -g unity-mcp-cli`
+- **unity-mcp-cli**: `npm install -g unity-mcp-cli`
+
+## Tool Installation
+
+Install the tools below before starting the exam.
+
+### Unity Editor / Unity CLI
+
+- Install Unity Hub: <https://unity.com/unity-hub>
+- Install the required editor version: **Unity 2022.3.34f1**
+- Unity Hub documentation: <https://docs.unity.com/hub>
+- Unity Hub CLI documentation: <https://docs.unity.com/hub/unity-cli>
+
+Recommended CLI path after installing `unity-mcp-cli`:
+
+```bash
+unity-mcp-cli install-unity 2022.3.34f1
+```
+
+Manual fallback:
+
+1. Open Unity Hub.
+2. Go to **Installs**.
+3. Install **Unity 2022.3.34f1** with the required modules for your platform.
+
+Launch the project from the command line after Unity is installed:
+
+```bash
+/Applications/Unity/Hub/Editor/2022.3.34f1/Unity.app/Contents/MacOS/Unity \
+  -projectPath /path/to/CDREBIRTH-Demo-Exam
+```
+
+### Unity MCP CLI and MCP Plugin
+
+- Unity MCP repository: <https://github.com/IvanMurzak/Unity-MCP>
+- Unity MCP installation guide: <https://github.com/IvanMurzak/Unity-MCP/wiki/Installation-Guide>
+- CLI package: <https://www.npmjs.com/package/unity-mcp-cli>
+- Node.js download: <https://nodejs.org/>
+
+Install the CLI:
+
+```bash
+npm install -g unity-mcp-cli
+unity-mcp-cli --version
+```
+
+This exam project already includes the Unity MCP package in `Packages/manifest.json`. If you are setting up another Unity project from scratch, install the plugin from the project folder:
+
+```bash
+unity-mcp-cli install-plugin .
+```
 
 ## Quick Start
 
