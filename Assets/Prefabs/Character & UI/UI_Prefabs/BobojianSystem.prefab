@@ -855,7 +855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5873fbdd7e2f7584a8af3efac447c2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: sk-2d40b89f48a34295bed324f7c23d3b9e
+  apiKey: 
   modelName: deepseek-v4-flash
   apiUrl: https://api.deepseek.com/v1/chat/completions
   temperature: 0.7
@@ -896,7 +896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40aa6c330af2324bae7744a1d3bb97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: sk-2d40b89f48a34295bed324f7c23d3b9e
+  apiKey: 
   modelName: deepseek-v4-flash
   apiUrl: https://api.deepseek.com/v1/chat/completions
   temperature: 0.7
@@ -917,7 +917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c9789b8911082b498ff5c3c32d4aec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: sk-2d40b89f48a34295bed324f7c23d3b9e
+  apiKey: 
   modelName: deepseek-v4-flash
   apiUrl: https://api.deepseek.com/v1/chat/completions
   temperature: 0.5
